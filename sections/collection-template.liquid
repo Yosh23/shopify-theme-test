@@ -1,4 +1,4 @@
- {% paginate collection.products by 2 %}
+ {% paginate collection.products by section.settings.pagination %}
   <h1>{{ collection.title }}</h1>
   {% for product in collection.products %}
     <div>
@@ -18,15 +18,25 @@
   {% else %}
     <p>no matches</p>
   {% endfor %}
-  {% if paginate.pages >1 %}
+  {% if paginate.pages > 1 %}
     {{paginate | default_pagination}}
   {%endif%}
   {%endpaginate%}
 
 {% schema %}
   {
-    "name": "Section name",
-    "settings": []
+    "name": "Collection Template",
+    "settings": [
+      {
+       "type" : "range",
+        "id"  : "pagination",
+        "min" : 1,
+        "max" : 25,
+        "step" : 1,
+        "label" : "Products per page",
+        "default" : 1
+      }
+    ]
   }
 {% endschema %}
 
