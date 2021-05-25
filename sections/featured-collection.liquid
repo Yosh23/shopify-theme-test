@@ -1,0 +1,39 @@
+{% assign collection = collections['featured-collection'] %}
+{% for product in collection.products %}
+    <div>
+      <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+    
+      {{product.price | money}}
+      {% unless product.available %}
+        <strong>sold out</strong>
+      {% endunless %}
+      <a href="{{product.url | within: collection}}">
+        <img src="{{product.featured_image.src | img_url:'200x'}}" alt="{{product.featured_image.alt | escape}}"/>
+        {%comment%}
+        escape filter makes sure to escape any html that may be in the alt tag. when in doubt escape it
+        {%endcomment%}
+      </a>
+    </div>
+  {% else %}
+    <p>no matches</p>
+  {% endfor %}
+
+
+{% schema %}
+  {
+    "name": "Feature Collection",
+    "settings": [],
+    "presets": [
+        {
+            "category" : "Custom Content",
+            "name" : "Featured Collection"
+        }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
